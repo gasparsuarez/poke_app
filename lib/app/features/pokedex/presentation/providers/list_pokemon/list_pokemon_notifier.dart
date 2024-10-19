@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poke_app/app/features/pokedex/domain/usecases/get_pokemon_list_usecase.dart';
-import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemon_state.dart';
+import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemon/list_pokemon_state.dart';
 
 class ListPokemonNotifier extends StateNotifier<ListPokemonState> {
   ListPokemonNotifier(this.useCase) : super(ListPokemonStateInitial()) {

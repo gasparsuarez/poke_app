@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poke_app/app/core/widgets/error_widget.dart';
 import 'package:poke_app/app/core/widgets/shimmer_container.dart';
 import 'package:poke_app/app/core/widgets/shimmer_loader.dart';
-import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemon_provider.dart';
+import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemon/list_pokemon_provider.dart';
 import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_sliver_list.dart';
 import 'package:sizer/sizer.dart';
 
