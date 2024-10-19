@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:poke_app/app/core/styles/app_colors.dart';
 import 'package:poke_app/app/core/styles/assets.dart';
+import 'package:poke_app/app/features/pokedex/presentation/pages/pokedex_list_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -31,7 +32,15 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return PokedexListPage();
+              },
+              childCount: 1,
+            ),
+          ),
         ],
       ),
     );
