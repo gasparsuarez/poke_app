@@ -1,3 +1,6 @@
-# poke_app
+# Proyecto Prueba técnica con PokeAPI
 
-A new Flutter project.
+
+## Instalación
+
+1. Ejecutar ``flutter pub get`` para instalar dependencias 
