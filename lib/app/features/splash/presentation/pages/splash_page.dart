@@ -33,7 +33,7 @@ class SplashPage extends ConsumerWidget {
             child: FadeInDown(
               from: 200,
               child: Image.asset(
-                Assets.pokeball,
+                Assets.pokeballLogo,
               ),
             ),
           ),
