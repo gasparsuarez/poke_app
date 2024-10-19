@@ -8,6 +8,6 @@ class Pokedex {
   Pokedex({
     required this.nextPage,
     required this.previousPage,
-    required this.results,
+    this.results = const [],
   });
 }

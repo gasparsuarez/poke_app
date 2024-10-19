@@ -33,14 +33,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return PokedexListPage();
-              },
-              childCount: 1,
-            ),
-          ),
+          PokedexListPage()
         ],
       ),
     );
