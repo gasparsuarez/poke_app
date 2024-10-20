@@ -6,6 +6,7 @@ import 'package:poke_app/app/core/styles/assets.dart';
 import 'package:poke_app/app/features/pokedex/presentation/providers/pagination/pagination_notifier_provider.dart';
 import 'package:poke_app/app/features/pokedex/presentation/widgets/pokedex.dart';
 import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemon/list_pokemon_provider.dart';
+import 'package:sizer/sizer.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -19,6 +20,7 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   ScrollController? _scrollController;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     /// Listen changes when provider setMaxPosition
+    ///
     /// If scroll is maxPosition, call [nextPage] function to look new pokemons
     ref.listen(
       paginationNotifierProvider,
@@ -57,6 +60,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     ref.listen(listPokemonProvider, (previous, next) {
       if (next.isLoadedNextPage) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
+          /// Move to maxScrollExtent in 2 seconds
           _scrollController!.animateTo(
             _scrollController!.position.maxScrollExtent - 400,
             duration: const Duration(seconds: 2),
@@ -67,37 +71,76 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
 
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        child: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverAppBar(
-              backgroundColor: AppColors.primary,
-              title: Image.asset(Assets.pikachuIcon),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.search,
-                    color: AppColors.white,
+      backgroundColor: AppColors.white,
+      body: Stack(
+        children: [
+          CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                backgroundColor: AppColors.primary,
+                title: Image.asset(Assets.pikachuIcon),
+                actions: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.search,
+                      color: AppColors.white,
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
 
-            ///
-            /// Refresh indicator
-            ///
-            CupertinoSliverRefreshControl(
-              onRefresh: () async => ref.read(listPokemonProvider.notifier).listAll(),
-            ),
+              ///
+              /// Refresh indicator
+              ///
+              CupertinoSliverRefreshControl(
+                onRefresh: () async => ref.read(listPokemonProvider.notifier).listAll(),
+              ),
 
-            ///
-            /// Render Pokedex
-            ///
-            const Pokedex()
-          ],
+              ///
+              /// Render Pokedex
+              ///
+              const Pokedex()
+            ],
+          ),
+          const _PaginationLoader(),
+        ],
+      ),
+    );
+  }
+}
+
+class _PaginationLoader extends ConsumerWidget {
+  const _PaginationLoader();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    /// Watch changes when [nextPage] is loading
+    final isLoadingNextPage = ref.watch(listPokemonProvider).isLoadingNextPage;
+
+    if (!isLoadingNextPage) return const SizedBox.shrink();
+
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: 20.h,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black87,
+            ],
+          ),
+        ),
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: AppColors.white,
+            strokeWidth: 2,
+          ),
         ),
       ),
     );

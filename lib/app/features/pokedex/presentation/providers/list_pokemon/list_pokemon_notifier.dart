@@ -17,6 +17,7 @@ class ListPokemonNotifier extends StateNotifier<ListPokemonState> {
   ///
   Future<void> nextPage() async {
     state = state.copyWith(
+      hasError: false,
       isLoadingNextPage: true,
       isLoadedNextPage: false,
     );
@@ -54,6 +55,8 @@ class ListPokemonNotifier extends StateNotifier<ListPokemonState> {
     state = state.copyWith(
       isLoading: true,
       hasError: false,
+      isLoadingNextPage: false,
+      isLoadedNextPage: false,
     );
 
     final result = await useCase.call(GetPokemonListParams(limit: state.currentLimit));
