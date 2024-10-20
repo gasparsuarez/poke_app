@@ -102,6 +102,12 @@ class _PokemonCard extends StatelessWidget {
             ),
             child: SvgPicture.network(
               Assets.buildPokemonSpriteUrl(index + 1),
+              placeholderBuilder: (_) {
+                return const CircularProgressIndicator(
+                  color: AppColors.white,
+                  strokeWidth: 2,
+                );
+              },
               width: 34.sp,
             ),
           ),

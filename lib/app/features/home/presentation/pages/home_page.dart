@@ -1,11 +1,10 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:poke_app/app/core/styles/app_colors.dart';
 import 'package:poke_app/app/core/styles/assets.dart';
 import 'package:poke_app/app/features/pokedex/presentation/providers/pagination/pagination_notifier_provider.dart';
-import 'package:poke_app/app/features/pokedex/presentation/pages/pokedex_list_page.dart';
+import 'package:poke_app/app/features/pokedex/presentation/widgets/pokedex.dart';
 import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemon/list_pokemon_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -27,12 +26,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     /// listen scrollController
     _scrollController!.addListener(() {
-      // Listen when position is equal to [maxScrollExtent]
-      if (_scrollController!.offset == _scrollController!.position.maxScrollExtent) {
-        ref.read(paginationNotifierProvider.notifier).setMaxScroll(true);
-      } else {
-        ref.read(paginationNotifierProvider.notifier).setMaxScroll(false);
-      }
+      // Listen when current position is equal to [maxScrollExtent] and notify provider
+      final isMaxScroll = _scrollController!.offset == _scrollController!.position.maxScrollExtent;
+      ref.read(paginationNotifierProvider.notifier).setMaxScroll(isMaxScroll);
     });
   }
 
@@ -44,9 +40,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    ///
-    /// Listen changes when scroll is Max Position
-    ///
+    /// Listen changes when provider setMaxPosition
     /// If scroll is maxPosition, call [nextPage] function to look new pokemons
     ref.listen(
       paginationNotifierProvider,
@@ -66,11 +60,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           slivers: [
             SliverAppBar(
               backgroundColor: AppColors.primary,
-              title: Pulse(
-                infinite: true,
-                duration: const Duration(seconds: 3),
-                child: Image.asset(Assets.pikachuIcon),
-              ),
+              title: Image.asset(Assets.pikachuIcon),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -88,7 +78,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             CupertinoSliverRefreshControl(
               onRefresh: () async => ref.read(listPokemonProvider.notifier).listAll(),
             ),
-            const PokedexListPage()
+
+            ///
+            /// Render Pokedex
+            ///
+            const Pokedex()
           ],
         ),
       ),

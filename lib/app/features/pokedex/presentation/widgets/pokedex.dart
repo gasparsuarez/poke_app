@@ -7,8 +7,8 @@ import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemo
 import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_sliver_list.dart';
 import 'package:sizer/sizer.dart';
 
-class PokedexListPage extends ConsumerWidget {
-  const PokedexListPage({super.key});
+class Pokedex extends ConsumerWidget {
+  const Pokedex({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +17,7 @@ class PokedexListPage extends ConsumerWidget {
     final hasError = listPokemonNotifier.hasError;
     final pokedex = listPokemonNotifier.pokedex;
 
-    // Return [_Loader] widget when API is called or [pokedex] is null
+    // Return [_Loader] widget when API is called
     if (isLoading) return const _Loader();
 
     // Return [_Error] widget when API throws error
@@ -34,6 +34,7 @@ class _Error extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /// Read error message
     final listPokemonNotifier = ref.read(listPokemonProvider.notifier);
     return SliverToBoxAdapter(
       child: CustomErrorWidget(
