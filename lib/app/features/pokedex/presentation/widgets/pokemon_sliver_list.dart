@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:poke_app/app/features/pokedex/presentation/pages/pokemon_detail_page.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:poke_app/app/core/styles/app_colors.dart';
@@ -26,9 +28,17 @@ class PokemonSliverList extends StatelessWidget {
         childCount: pokemons.length,
         (context, index) {
           final pokemon = pokemons[index];
-          return _PokemonCard(
-            index: index,
-            pokemon: pokemon,
+          return GestureDetector(
+            onTap: () => context.pushNamed(
+              PokemonDetailPage.routeName,
+              pathParameters: {
+                'id': pokemon.getPokemonId,
+              },
+            ),
+            child: _PokemonCard(
+              index: index,
+              pokemon: pokemon,
+            ),
           );
         },
       ),
