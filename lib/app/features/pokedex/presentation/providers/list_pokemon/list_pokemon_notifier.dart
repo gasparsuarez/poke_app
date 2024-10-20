@@ -10,13 +10,53 @@ class ListPokemonNotifier extends StateNotifier<ListPokemonState> {
 
   final GetPokemonListUsecase useCase;
 
+  ///
+  /// When user move scroll to maxExtent, [nextPage] is called and
+  ///
+  /// fetch new 50 pokemons
+  ///
+  Future<void> nextPage() async {
+    state = state.copyWith(
+      isLoadingNextPage: true,
+      isLoadedNextPage: false,
+    );
+
+    state = state.copyWith(currentLimit: state.currentLimit + 50);
+    final result = await useCase.call(GetPokemonListParams(limit: state.currentLimit));
+
+    switch (result) {
+      case Left():
+        state = state.copyWith(
+          message: result.value.message,
+        );
+        break;
+      case Right():
+
+        // Take new results
+        final newResults = result.value.results;
+
+        // Take current pokedex and add to results new list of fetched pokemons
+        final updatedPokedex = state.pokedex!.copyWith(results: [...newResults]);
+
+        state = state.copyWith(
+          isLoadedNextPage: true,
+          isLoadingNextPage: false,
+          pokedex: updatedPokedex,
+        );
+        break;
+    }
+  }
+
+  ///
+  /// Fetch pokemon list with [limit] of 50 pokemons per page
+  ///
   Future<void> listAll() async {
     state = state.copyWith(
       isLoading: true,
       hasError: false,
     );
 
-    final result = await useCase.call(GetPokemonListParams(limit: 50));
+    final result = await useCase.call(GetPokemonListParams(limit: state.currentLimit));
 
     switch (result) {
       case Left():

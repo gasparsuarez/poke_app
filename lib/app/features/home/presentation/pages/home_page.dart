@@ -46,11 +46,25 @@ class _HomePageState extends ConsumerState<HomePage> {
       paginationNotifierProvider,
       (previous, next) {
         if (next) {
-          print('Max scrollled');
-          //TODO: Next page
+          ref.read(listPokemonProvider.notifier).nextPage();
         }
       },
     );
+
+    /// Listen changes when [nextPage] is called
+    ///
+    /// Auto move scroll to [maxScrollExtent] when next page loads
+    ref.listen(listPokemonProvider, (previous, next) {
+      if (next.isLoadedNextPage) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollController!.animateTo(
+            _scrollController!.position.maxScrollExtent - 400,
+            duration: const Duration(seconds: 2),
+            curve: Curves.easeIn,
+          );
+        });
+      }
+    });
 
     return Scaffold(
       body: SafeArea(
