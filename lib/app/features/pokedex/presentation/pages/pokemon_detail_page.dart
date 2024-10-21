@@ -131,28 +131,58 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 4.h,
+                                  height: 2.h,
                                 ),
 
                                 ///
                                 /// Render Pokemon Stats
                                 ///
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     _Stat(
                                       name: Strings.weight,
-                                      value: pokemon.weight.toString(),
+                                      value: '${pokemon.weight} ${Strings.kg}',
                                     ),
                                     SizedBox(
                                       width: 4.w,
                                     ),
                                     _Stat(
                                       name: Strings.height,
-                                      value: pokemon.height.toString(),
+                                      value: '${pokemon.height} ${Strings.m}',
                                     )
                                   ],
-                                )
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+
+                                Text(
+                                  'Abilities',
+                                  style: TextStyle(fontSize: 22.sp),
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount: pokemon.abilities.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (_, idx) {
+                                      final ability = pokemon.abilities[idx];
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 2.w),
+                                        child: Chip(
+                                          label: Text(
+                                            ability.name.capitalize(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           );

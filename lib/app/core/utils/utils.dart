@@ -19,8 +19,10 @@ class Utils {
       'electric': Colors.yellow,
       'rock': Colors.grey,
       'fighting': Colors.red,
+      'flying': Colors.teal,
+      'psychic': Colors.purple,
     };
 
-    return colors[type] ?? Colors.white;
+    return colors[type] ?? Colors.grey;
   }
 }

@@ -7,14 +7,25 @@ class PokemonModel extends Pokemon {
     required super.types,
     required super.name,
     required super.id,
+    required super.abilities,
   });
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) => PokemonModel(
         height: json['height'],
         weight: json['weight'],
         types: (json['types'] as List).map((type) => TypeModel.fromJson(type)).toList(),
+        abilities:
+            (json['abilities'] as List).map((ability) => AbilityModel.fromJson(ability)).toList(),
         name: json['name'],
         id: json['id'],
+      );
+}
+
+class AbilityModel extends Ability {
+  AbilityModel({required super.name});
+
+  factory AbilityModel.fromJson(Map<String, dynamic> json) => AbilityModel(
+        name: json['ability']['name'],
       );
 }
 
