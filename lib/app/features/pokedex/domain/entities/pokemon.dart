@@ -1,15 +1,21 @@
 class Pokemon {
   final int height;
   final int weight;
-  final String type;
+  final List<Type> types;
   final String name;
   final int id;
 
   Pokemon({
     required this.height,
     required this.weight,
-    required this.type,
+    required this.types,
     required this.name,
     required this.id,
   });
+}
+
+class Type {
+  final String name;
+
+  Type({required this.name});
 }

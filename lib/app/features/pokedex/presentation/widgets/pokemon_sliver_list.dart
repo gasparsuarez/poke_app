@@ -1,12 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poke_app/app/features/pokedex/presentation/pages/pokemon_detail_page.dart';
+import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_image.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:poke_app/app/core/styles/app_colors.dart';
-import 'package:poke_app/app/core/styles/assets.dart';
 import 'package:poke_app/app/features/pokedex/domain/entities/raw_pokemon.dart';
 
 class PokemonSliverList extends StatelessWidget {
@@ -99,34 +98,9 @@ class _PokemonCard extends StatelessWidget {
         Positioned(
           left: 14.w / 2,
           top: 4.h,
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  spreadRadius: -12,
-                  blurRadius: 10,
-                  offset: Offset(0, 34),
-                ),
-              ],
-            ),
-            child: SvgPicture.network(
-              Assets.buildPokemonSpriteUrl(index + 1),
-              placeholderBuilder: (_) {
-                return SizedBox(
-                  width: 20.w,
-                  height: 8.h,
-                  child: const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.grey,
-                      strokeWidth: 1,
-                    ),
-                  ),
-                );
-              },
-              width: 34.sp,
-            ),
+          child: PokemonImage(
+            index: index + 1,
+            width: 20,
           ),
         ),
       ],
