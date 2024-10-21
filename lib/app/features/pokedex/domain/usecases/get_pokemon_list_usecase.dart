@@ -6,12 +6,18 @@ import 'package:poke_app/app/features/pokedex/domain/entities/pokedex.dart';
 import 'package:poke_app/app/features/pokedex/domain/repositories/pokedex_repository.dart';
 import 'package:poke_app/app/features/pokedex/domain/repositories/pokedex_repository_provider.dart';
 
-final getPokemonUsecaseProvider = Provider((ref) {
+///
+/// [getPokemonListUsecaseProvider] expose Usecase with repository injection
+///
+final getPokemonListUsecaseProvider = Provider((ref) {
   final repository = ref.read(pokedexRepositoryProvider);
   final useCase = GetPokemonListUsecase(repository: repository);
   return useCase;
 });
 
+///
+/// [GetPokemonListUsecase] depends of [PokedexRepository] param injection for work
+///
 class GetPokemonListUsecase extends UseCase<Pokedex, GetPokemonListParams> {
   final PokedexRepository repository;
 
@@ -26,7 +32,7 @@ class GetPokemonListUsecase extends UseCase<Pokedex, GetPokemonListParams> {
 }
 
 class GetPokemonListParams {
-  // Limit for fetch
+  // Pokemon Fetch Limit
   final int limit;
 
   GetPokemonListParams({

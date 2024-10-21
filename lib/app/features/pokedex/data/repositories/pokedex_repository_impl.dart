@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:poke_app/app/core/network/errors/failures.dart';
 import 'package:poke_app/app/features/pokedex/data/datasources/pokedex_datasource.dart';
 import 'package:poke_app/app/features/pokedex/domain/entities/pokedex.dart';
+import 'package:poke_app/app/features/pokedex/domain/entities/pokemon.dart';
 import 'package:poke_app/app/features/pokedex/domain/repositories/pokedex_repository.dart';
 
 class PokedexRepositoryImpl extends PokedexRepository {
@@ -17,6 +18,16 @@ class PokedexRepositoryImpl extends PokedexRepository {
       final response = await dataSource.getPokemonList(limit: limit);
       return Right(response);
     } catch (_) {
+      return Left(ApiFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Pokemon>> getPokemonById({required String id}) async {
+    try {
+      final response = await dataSource.getPokemonById(id: id);
+      return Right(response);
+    } catch (e) {
       return Left(ApiFailure());
     }
   }

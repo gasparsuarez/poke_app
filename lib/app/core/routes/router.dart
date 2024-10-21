@@ -25,10 +25,11 @@ class AppRouter {
             path: PokemonDetailPage.routePath,
             name: PokemonDetailPage.routeName,
             builder: (_, state) {
+              /// Pass the pokemon id in pathParameters
               final id = state.pathParameters['id'] as String;
 
               return PokemonDetailPage(
-                pokemonId: id,
+                id: id,
               );
             },
           ),

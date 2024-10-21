@@ -31,6 +31,7 @@ class PokemonSliverList extends StatelessWidget {
           return GestureDetector(
             onTap: () => context.pushNamed(
               PokemonDetailPage.routeName,
+              extra: pokemon,
               pathParameters: {
                 'id': pokemon.getPokemonId,
               },

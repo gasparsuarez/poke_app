@@ -4,7 +4,7 @@ import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemo
 import 'package:poke_app/app/features/pokedex/presentation/providers/list_pokemon/list_pokemon_state.dart';
 
 final listPokemonProvider = StateNotifierProvider<ListPokemonNotifier, ListPokemonState>((ref) {
-  final useCase = ref.read(getPokemonUsecaseProvider);
+  final useCase = ref.read(getPokemonListUsecaseProvider);
 
   return ListPokemonNotifier(useCase);
 });
