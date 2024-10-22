@@ -29,3 +29,12 @@
 
 1. Abrir la terminal y ejecutar comando ``dart run build_runner build`` para generar los Mocks.
 2. Ejecutar comando ``flutter test`` para realizar los tests.
+
+
+## Imágenes
+<row> 
+
+ <img src="images/simulator_screenshot_D6DBB3CA-EC94-4E89-A747-93BAEDC87C7A.png" width="250"> 
+ <img src="images/simulator_screenshot_88D8C52C-43A5-4879-B537-A7017AF336B9.png" width="250"> 
+
+</row>
