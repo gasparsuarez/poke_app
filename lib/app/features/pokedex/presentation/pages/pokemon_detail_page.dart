@@ -7,6 +7,7 @@ import 'package:poke_app/app/core/styles/app_colors.dart';
 import 'package:poke_app/app/core/utils/utils.dart';
 import 'package:poke_app/app/core/widgets/error_widget.dart';
 import 'package:poke_app/app/features/pokedex/presentation/providers/pokemon/get_pokemon_provider.dart';
+import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_detail/stats_widget.dart';
 import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_image.dart';
 import 'package:sizer/sizer.dart';
 
@@ -148,43 +149,9 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                                 ///
                                 /// Render Pokemon Stats
                                 ///
-                                Text(
-                                  Strings.stats,
-                                  style: TextStyle(fontSize: 18.sp),
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(10.sp),
-                                  decoration: BoxDecoration(
-                                    color: Utils.getColorByPokemonType(pokemon.types.first.name),
-                                    borderRadius: BorderRadius.circular(16.sp),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: AppColors.shadow,
-                                        offset: Offset(0, 4),
-                                        spreadRadius: 2,
-                                        blurRadius: 6,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      _Stat(
-                                        name: Strings.weight,
-                                        value: '${pokemon.weight} ${Strings.kg}',
-                                      ),
-                                      SizedBox(
-                                        width: 4.w,
-                                      ),
-                                      _Stat(
-                                        name: Strings.height,
-                                        value: '${pokemon.height} ${Strings.m}',
-                                      )
-                                    ],
-                                  ),
+
+                                StatsWidget(
+                                  pokemon: pokemon,
                                 ),
                                 SizedBox(
                                   height: 2.h,
@@ -214,39 +181,6 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                     )
                   ],
                 ),
-    );
-  }
-}
-
-class _Stat extends StatelessWidget {
-  const _Stat({
-    required this.name,
-    required this.value,
-  });
-
-  final String name;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          name,
-          style: TextStyle(
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.white,
-          ),
-        ),
-        Text(
-          value.toString(),
-          style: TextStyle(
-            fontSize: 18.sp,
-            color: AppColors.white,
-          ),
-        )
-      ],
     );
   }
 }
