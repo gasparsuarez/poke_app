@@ -70,128 +70,131 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
           ? loaderWidget
           : hasError
               ? errorWidget
-              : CustomScrollView(
-                  physics: const ClampingScrollPhysics(),
-                  slivers: [
-                    SliverAppBar(
-                      backgroundColor: Colors.transparent,
-                      expandedHeight: 24.h,
-                      leading: GestureDetector(
-                        onTap: context.pop,
-                        child: const Icon(
-                          Icons.arrow_back_ios,
-                          color: AppColors.white,
-                        ),
-                      ),
-                      flexibleSpace: SafeArea(
-                        top: false,
-                        child: Container(
-                          height: 30.h,
-                          padding: EdgeInsets.all(14.sp),
-                          decoration: BoxDecoration(
-                            color: Utils.getColorByPokemonType(pokemon!.types.first.name),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(
-                                18.w,
+              : (pokemon != null)
+                  ? CustomScrollView(
+                      physics: const ClampingScrollPhysics(),
+                      slivers: [
+                        SliverAppBar(
+                          backgroundColor: Colors.transparent,
+                          expandedHeight: 24.h,
+                          leading: GestureDetector(
+                            onTap: context.pop,
+                            child: const Icon(
+                              Icons.arrow_back_ios,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          flexibleSpace: SafeArea(
+                            top: false,
+                            child: Container(
+                              height: 30.h,
+                              padding: EdgeInsets.all(14.sp),
+                              decoration: BoxDecoration(
+                                color: Utils.getColorByPokemonType(pokemon.types.first.name),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(
+                                    18.w,
+                                  ),
+                                  bottomRight: Radius.circular(
+                                    18.w,
+                                  ),
+                                ),
                               ),
-                              bottomRight: Radius.circular(
-                                18.w,
+                              child: SafeArea(
+                                child: PokemonImage(
+                                  index: pokemon.id,
+                                  shadow: false,
+                                  width: 50,
+                                ),
                               ),
                             ),
                           ),
-                          child: SafeArea(
-                            child: PokemonImage(
-                              index: pokemon.id,
-                              shadow: false,
-                              width: 50,
-                            ),
-                          ),
                         ),
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      pokemon.name.capitalize(),
-                                      style: TextStyle(fontSize: 22.sp),
-                                    ),
-                                    Text(
-                                      '#${pokemon.id}',
-                                      style: TextStyle(
-                                        fontSize: 20.sp,
-                                        color: AppColors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-
-                                ///
-                                ///  Render Pokemon types
-                                ///
-                                Wrap(
-                                  spacing: 2.w,
-                                  children: pokemon.types
-                                      .map(
-                                        (type) => Chip(
-                                          backgroundColor: Utils.getColorByPokemonType(type.name),
-                                          label: Text(
-                                            type.name.capitalize(),
-                                            style: const TextStyle(color: AppColors.white),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          pokemon.name.capitalize(),
+                                          style: TextStyle(fontSize: 22.sp),
+                                        ),
+                                        Text(
+                                          '#${pokemon.id}',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            color: AppColors.grey,
                                           ),
                                         ),
-                                      )
-                                      .toList(),
-                                ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
 
-                                SizedBox(
-                                  height: 2.h,
-                                ),
+                                    ///
+                                    ///  Render Pokemon types
+                                    ///
+                                    Wrap(
+                                      spacing: 2.w,
+                                      children: pokemon.types
+                                          .map(
+                                            (type) => Chip(
+                                              backgroundColor:
+                                                  Utils.getColorByPokemonType(type.name),
+                                              label: Text(
+                                                type.name.capitalize(),
+                                                style: const TextStyle(color: AppColors.white),
+                                              ),
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
 
-                                ///
-                                /// Render Pokemon Stats
-                                ///
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
 
-                                StatsWidget(
-                                  pokemon: pokemon,
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
+                                    ///
+                                    /// Render Pokemon Stats
+                                    ///
 
-                                Text(
-                                  Strings.abilities,
-                                  style: TextStyle(fontSize: 18.sp),
-                                ),
+                                    StatsWidget(
+                                      pokemon: pokemon,
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
+                                    ),
 
-                                Wrap(
-                                  spacing: 2.w,
-                                  children: pokemon.abilities
-                                      .map(
-                                        (pokemon) => Chip(label: Text(pokemon.name)),
-                                      )
-                                      .toList(),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        childCount: 1,
-                      ),
+                                    Text(
+                                      Strings.abilities,
+                                      style: TextStyle(fontSize: 18.sp),
+                                    ),
+
+                                    Wrap(
+                                      spacing: 2.w,
+                                      children: pokemon.abilities
+                                          .map(
+                                            (pokemon) => Chip(label: Text(pokemon.name)),
+                                          )
+                                          .toList(),
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                            childCount: 1,
+                          ),
+                        )
+                      ],
                     )
-                  ],
-                ),
+                  : SizedBox.shrink(),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:poke_app/app/core/network/api_paths.dart';
 import 'package:poke_app/app/core/network/client/api_client.dart';
 import 'package:poke_app/app/features/pokedex/data/models/pokedex_model.dart';
@@ -25,6 +26,8 @@ class PokedexDatasourceImpl extends PokedexDatasource {
   @override
   Future<PokemonModel> getPokemonById({required String id}) async {
     final result = await client.dio.get('${ApiPaths.getPokemonById}$id');
-    return PokemonModel.fromJson(result.data);
+
+    /// use [compute] for parse model in background
+    return compute(PokemonModel.fromJson, result.data as Map<String, dynamic>);
   }
 }
