@@ -173,9 +173,7 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                                   Strings.abilities,
                                   style: TextStyle(fontSize: 18.sp),
                                 ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
+
                                 Wrap(
                                   spacing: 2.w,
                                   children: pokemon.abilities

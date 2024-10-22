@@ -22,8 +22,90 @@ class StatsWidget extends StatelessWidget {
       children: [
         WeightAndHeightCard(
           pokemon: pokemon,
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        BaseStats(
+          stats: pokemon.stats,
         )
       ],
+    );
+  }
+}
+
+class BaseStats extends StatelessWidget {
+  final List<Stat> stats;
+  const BaseStats({
+    super.key,
+    required this.stats,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Color getBaseColor(double base) {
+      if (base > 0.70) {
+        return AppColors.lightGreen;
+      } else if (base > 0.45) {
+        return AppColors.orange;
+      }
+      return AppColors.yellow;
+    }
+
+    return Container(
+      constraints: BoxConstraints(maxHeight: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 2.w),
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
+        itemCount: stats.length,
+        itemBuilder: (context, index) {
+          final stat = stats[index];
+          final interpolation = '0.${stat.base}';
+          final basePercent = double.tryParse(interpolation);
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                Flexible(
+                  flex: 2,
+                  fit: FlexFit.tight,
+                  child: Text(
+                    stat.name,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                Flexible(
+                  flex: 3,
+                  fit: FlexFit.tight,
+                  child: LinearProgressIndicator(
+                    borderRadius: BorderRadius.circular(16.sp),
+                    value: basePercent,
+                    backgroundColor: AppColors.lightGrey,
+                    color: getBaseColor(basePercent!),
+                    minHeight: 2.h,
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      stat.base.toString(),
+                      style: const TextStyle(
+                        color: AppColors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
