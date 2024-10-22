@@ -7,7 +7,6 @@
 * Paginación.
 * Información detallada de cada Pokémon.
 * Diseño intuitivo y fácil de usar.
-* TODO: Búsqueda por nombre o número de pokedex.
 
 ## Instalación
 
@@ -20,3 +19,13 @@
 * Gestor de estado: flutter_riverpod
 * Cliente HTTP: Dio
 * Arquitectura: Clean Architecture
+* Testing: Mockito & build_runner
+
+## Testing
+
+* El testing se realizó con la librería ``Mockito`` que utiliza generación de código para generar los Mocks.
+
+* Antes de ejecutar los tests, es necesario generar los Mocks correspondientes.
+
+1. Abrir la terminal y ejecutar comando ``dart run build_runner build`` para generar los Mocks.
+2. Ejecutar comando ``flutter test`` para realizar los tests.

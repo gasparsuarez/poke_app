@@ -81,15 +81,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                 pinned: true,
                 backgroundColor: AppColors.primary,
                 title: Image.asset(Assets.pikachuIcon),
-                actions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
-                      color: AppColors.white,
-                    ),
-                  ),
-                ],
               ),
 
               ///
