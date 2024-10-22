@@ -6,4 +6,6 @@ class Strings {
   static const weight = 'Weight';
   static const kg = 'KG';
   static const m = 'M';
+  static const stats = 'Stats';
+  static const abilities = 'Abilities';
 }

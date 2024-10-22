@@ -73,8 +73,8 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                   physics: const ClampingScrollPhysics(),
                   slivers: [
                     SliverAppBar(
-                      backgroundColor: Utils.getColorByPokemonType(pokemon!.types.first.name),
-                      expandedHeight: 30.h,
+                      backgroundColor: Colors.transparent,
+                      expandedHeight: 24.h,
                       leading: GestureDetector(
                         onTap: context.pop,
                         child: const Icon(
@@ -83,10 +83,27 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                         ),
                       ),
                       flexibleSpace: SafeArea(
-                        child: PokemonImage(
-                          index: pokemon.id,
-                          shadow: false,
-                          width: 60,
+                        top: false,
+                        child: Container(
+                          padding: EdgeInsets.all(14.sp),
+                          decoration: BoxDecoration(
+                            color: Utils.getColorByPokemonType(pokemon!.types.first.name),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(
+                                18.w,
+                              ),
+                              bottomRight: Radius.circular(
+                                18.w,
+                              ),
+                            ),
+                          ),
+                          child: SafeArea(
+                            child: PokemonImage(
+                              index: pokemon.id,
+                              shadow: false,
+                              width: 50,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -109,27 +126,21 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                                 ///
                                 ///  Render Pokemon types
                                 ///
-                                SizedBox(
-                                  height: 4.h,
-                                  child: ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    itemCount: pokemon.types.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (_, idx) {
-                                      final type = pokemon.types[idx];
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 2.w),
-                                        child: Chip(
+                                Wrap(
+                                  spacing: 2.w,
+                                  children: pokemon.types
+                                      .map(
+                                        (type) => Chip(
                                           backgroundColor: Utils.getColorByPokemonType(type.name),
                                           label: Text(
                                             type.name.capitalize(),
                                             style: const TextStyle(color: AppColors.white),
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      )
+                                      .toList(),
                                 ),
+
                                 SizedBox(
                                   height: 2.h,
                                 ),
@@ -137,52 +148,63 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                                 ///
                                 /// Render Pokemon Stats
                                 ///
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    _Stat(
-                                      name: Strings.weight,
-                                      value: '${pokemon.weight} ${Strings.kg}',
-                                    ),
-                                    SizedBox(
-                                      width: 4.w,
-                                    ),
-                                    _Stat(
-                                      name: Strings.height,
-                                      value: '${pokemon.height} ${Strings.m}',
-                                    )
-                                  ],
+                                Text(
+                                  Strings.stats,
+                                  style: TextStyle(fontSize: 18.sp),
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(10.sp),
+                                  decoration: BoxDecoration(
+                                    color: Utils.getColorByPokemonType(pokemon.types.first.name),
+                                    borderRadius: BorderRadius.circular(16.sp),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: AppColors.shadow,
+                                        offset: Offset(0, 4),
+                                        spreadRadius: 2,
+                                        blurRadius: 6,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      _Stat(
+                                        name: Strings.weight,
+                                        value: '${pokemon.weight} ${Strings.kg}',
+                                      ),
+                                      SizedBox(
+                                        width: 4.w,
+                                      ),
+                                      _Stat(
+                                        name: Strings.height,
+                                        value: '${pokemon.height} ${Strings.m}',
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 2.h,
                                 ),
 
                                 Text(
-                                  'Abilities',
-                                  style: TextStyle(fontSize: 22.sp),
+                                  Strings.abilities,
+                                  style: TextStyle(fontSize: 18.sp),
                                 ),
                                 SizedBox(
                                   height: 2.h,
                                 ),
-                                SizedBox(
-                                  height: 4.h,
-                                  child: ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    itemCount: pokemon.abilities.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (_, idx) {
-                                      final ability = pokemon.abilities[idx];
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 2.w),
-                                        child: Chip(
-                                          label: Text(
-                                            ability.name.capitalize(),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
+                                Wrap(
+                                  spacing: 2.w,
+                                  children: pokemon.abilities
+                                      .map(
+                                        (pokemon) => Chip(label: Text(pokemon.name)),
+                                      )
+                                      .toList(),
+                                )
                               ],
                             ),
                           );
@@ -214,12 +236,14 @@ class _Stat extends StatelessWidget {
           style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w600,
+            color: AppColors.white,
           ),
         ),
         Text(
           value.toString(),
           style: TextStyle(
             fontSize: 18.sp,
+            color: AppColors.white,
           ),
         )
       ],
