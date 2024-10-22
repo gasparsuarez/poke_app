@@ -3,6 +3,9 @@ import 'package:poke_app/app/features/pokedex/data/datasources/pokedex_datasourc
 import 'package:poke_app/app/features/pokedex/data/repositories/pokedex_repository_impl.dart';
 import 'package:poke_app/app/features/pokedex/domain/repositories/pokedex_repository.dart';
 
+///
+/// [pokedexRepositoryProvider] expose repository with [PokedexDatasource] injected
+///
 final pokedexRepositoryProvider = Provider<PokedexRepository>((ref) {
   final dataSource = ref.read(pokedexDatasourceProvider);
   final pokedexRepositoryImpl = PokedexRepositoryImpl(dataSource: dataSource);
