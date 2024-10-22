@@ -58,10 +58,10 @@ class BaseStats extends StatelessWidget {
       child: ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: stats.length,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           final stat = stats[index];
-          final interpolation = '0.${stat.base}';
-          final basePercent = double.tryParse(interpolation);
+          final basePercent = double.tryParse('0.${stat.base}');
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: Row(

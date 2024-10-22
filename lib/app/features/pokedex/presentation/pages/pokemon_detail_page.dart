@@ -86,6 +86,7 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                       flexibleSpace: SafeArea(
                         top: false,
                         child: Container(
+                          height: 30.h,
                           padding: EdgeInsets.all(14.sp),
                           decoration: BoxDecoration(
                             color: Utils.getColorByPokemonType(pokemon!.types.first.name),
