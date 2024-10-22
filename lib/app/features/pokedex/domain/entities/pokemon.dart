@@ -4,6 +4,7 @@ class Pokemon {
   final List<Type> types;
   final String name;
   final List<Ability> abilities;
+  final List<Stat> stats;
   final int id;
 
   Pokemon({
@@ -13,7 +14,15 @@ class Pokemon {
     required this.name,
     required this.id,
     required this.abilities,
+    required this.stats,
   });
+}
+
+class Stat {
+  final int base;
+  final String name;
+
+  Stat({required this.base, required this.name});
 }
 
 class Ability {

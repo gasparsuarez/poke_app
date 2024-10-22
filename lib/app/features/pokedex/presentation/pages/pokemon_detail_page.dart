@@ -116,9 +116,21 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  pokemon.name.capitalize(),
-                                  style: TextStyle(fontSize: 22.sp),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      pokemon.name.capitalize(),
+                                      style: TextStyle(fontSize: 22.sp),
+                                    ),
+                                    Text(
+                                      '#${pokemon.id}',
+                                      style: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: AppColors.grey,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height: 2.h,

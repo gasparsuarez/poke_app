@@ -7,4 +7,5 @@ class AppColors {
   static const orange = Colors.orangeAccent;
   static const shadow = Colors.black12;
   static const brown = Colors.brown;
+  static const grey = Colors.grey;
 }

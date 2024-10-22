@@ -20,13 +20,6 @@ class StatsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          Strings.stats,
-          style: TextStyle(fontSize: 18.sp),
-        ),
-        SizedBox(
-          height: 2.h,
-        ),
         WeightAndHeightCard(
           pokemon: pokemon,
         )
@@ -63,7 +56,7 @@ class WeightAndHeightCard extends StatelessWidget {
             value: '${pokemon.weight} ${Strings.kg}',
           ),
           SizedBox(
-            width: 4.w,
+            width: 2.w,
           ),
           _Stat(
             name: Strings.height,
@@ -94,7 +87,7 @@ class _Stat extends StatelessWidget {
         Text(
           name,
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.white,
           ),
@@ -102,7 +95,7 @@ class _Stat extends StatelessWidget {
         Text(
           value.toString(),
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 14.sp,
             color: AppColors.white,
           ),
         )
