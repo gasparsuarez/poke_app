@@ -23,10 +23,10 @@
 
 ## Testing
 
-* El testing se realizó con la librería ``Mockito`` que utiliza generación de código para generar los Mocks.
+El testing se realiza con la librería ``Mockito`` que trabaja con generación de código y permite realizar Mocks de las dependencias necesarias.
+Para generar los Mocks se utiliza la librería ``build_runner`` mediante anotaciones.
 
-* Antes de ejecutar los tests, es necesario generar los Mocks correspondientes.
-
+* Pasos:
 1. Abrir la terminal y ejecutar comando ``dart run build_runner build`` para generar los Mocks.
 2. Ejecutar comando ``flutter test`` para realizar los tests.
 
