@@ -34,7 +34,8 @@
 ## Imágenes
 <row> 
 
- <img src="images/simulator_screenshot_D6DBB3CA-EC94-4E89-A747-93BAEDC87C7A.png" width="250"> 
- <img src="images/simulator_screenshot_88D8C52C-43A5-4879-B537-A7017AF336B9.png" width="250"> 
+ <img src="images/simulator_screenshot_D6DBB3CA-EC94-4E89-A747-93BAEDC87C7A.png" width="200"> 
+ <img src="images/simulator_screenshot_88D8C52C-43A5-4879-B537-A7017AF336B9.png" width="200"> 
+<img src="images/Screenshot_1729702300.png" width="200">
 
 </row>
