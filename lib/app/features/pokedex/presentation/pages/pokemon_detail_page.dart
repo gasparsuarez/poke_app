@@ -11,34 +11,16 @@ import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_detai
 import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_image.dart';
 import 'package:sizer/sizer.dart';
 
-class PokemonDetailPage extends ConsumerStatefulWidget {
-  final String id;
-
+class PokemonDetailPage extends ConsumerWidget {
   const PokemonDetailPage({
     super.key,
-    required this.id,
   });
 
   static const routeName = 'pokemon_detail_page';
-  static const routePath = 'pokemon_detail_page/:id';
+  static const routePath = 'pokemon_detail_page';
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _PokemonDetailPageState();
-}
-
-class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    /// Fetch pokemon data before render
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(getPokemonProvider.notifier).getPokemonById(widget.id);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(getPokemonProvider).isLoading;
     final hasError = ref.watch(getPokemonProvider).hasError;
     final errorMessage = ref.read(getPokemonProvider).message;
@@ -58,7 +40,7 @@ class _PokemonDetailPageState extends ConsumerState<PokemonDetailPage> {
         Center(
           child: CustomErrorWidget(
             message: errorMessage,
-            retryCallback: () => ref.read(getPokemonProvider.notifier).getPokemonById(widget.id),
+            retryCallback: () => ref.read(getPokemonProvider.notifier).getPokemonById('1'),
           ),
         ),
       ],

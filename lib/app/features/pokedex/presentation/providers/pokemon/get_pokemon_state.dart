@@ -5,12 +5,14 @@ class GetPokemonState {
   final bool hasError;
   final String message;
   final Pokemon? pokemon;
+  final String currentPokemonId;
 
   GetPokemonState({
     this.isLoading = false,
     this.hasError = false,
     this.message = '',
     this.pokemon,
+    this.currentPokemonId = '',
   });
 
   GetPokemonState copyWith({
@@ -18,12 +20,14 @@ class GetPokemonState {
     bool? hasError,
     String? message,
     Pokemon? pokemon,
+    String? currentPokemonId,
   }) {
     return GetPokemonState(
       isLoading: isLoading ?? this.isLoading,
       hasError: hasError ?? this.hasError,
       message: message ?? this.message,
       pokemon: pokemon ?? this.pokemon,
+      currentPokemonId: currentPokemonId ?? this.currentPokemonId,
     );
   }
 }

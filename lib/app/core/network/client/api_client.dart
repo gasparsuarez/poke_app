@@ -14,7 +14,7 @@ class ApiClient {
     dio
       ..options = BaseOptions(
         baseUrl: ApiPaths.baseUrl,
-      )
-      ..interceptors.add(PrettyDioLogger(requestBody: true));
+      );
+    //  ..interceptors.add(PrettyDioLogger(requestBody: true));
   }
 }

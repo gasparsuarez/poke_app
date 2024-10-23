@@ -1,14 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poke_app/app/features/pokedex/presentation/pages/pokemon_detail_page.dart';
+import 'package:poke_app/app/features/pokedex/presentation/providers/pokemon/get_pokemon_provider.dart';
 import 'package:poke_app/app/features/pokedex/presentation/widgets/pokemon_image.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:poke_app/app/core/styles/app_colors.dart';
 import 'package:poke_app/app/features/pokedex/domain/entities/raw_pokemon.dart';
 
-class PokemonSliverList extends StatelessWidget {
+class PokemonSliverList extends ConsumerWidget {
   const PokemonSliverList({
     super.key,
     required this.pokemons,
@@ -17,7 +19,7 @@ class PokemonSliverList extends StatelessWidget {
   final List<RawPokemon> pokemons;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
@@ -28,13 +30,15 @@ class PokemonSliverList extends StatelessWidget {
         (context, index) {
           final pokemon = pokemons[index];
           return GestureDetector(
-            onTap: () => context.pushNamed(
-              PokemonDetailPage.routeName,
-              extra: pokemon,
-              pathParameters: {
-                'id': pokemon.getPokemonId,
-              },
-            ),
+            onTap: () {
+              /// Fetch pokemon data by ID
+              ref.read(getPokemonProvider.notifier).getPokemonById(pokemon.getPokemonId);
+
+              /// Push to [PokemonDetailPage]
+              context.pushNamed(
+                PokemonDetailPage.routeName,
+              );
+            },
             child: _PokemonCard(
               index: index,
               pokemon: pokemon,

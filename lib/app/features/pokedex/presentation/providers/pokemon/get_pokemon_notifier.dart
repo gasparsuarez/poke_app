@@ -28,6 +28,7 @@ class GetPokemonNotifier extends StateNotifier<GetPokemonState> {
         state = state.copyWith(
           isLoading: false,
           pokemon: result.value,
+          currentPokemonId: id,
         );
     }
   }

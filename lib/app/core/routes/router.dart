@@ -24,14 +24,7 @@ class AppRouter {
           GoRoute(
             path: PokemonDetailPage.routePath,
             name: PokemonDetailPage.routeName,
-            builder: (_, state) {
-              /// Pass the pokemon id in pathParameters
-              final id = state.pathParameters['id'] as String;
-
-              return PokemonDetailPage(
-                id: id,
-              );
-            },
+            builder: (_, state) => PokemonDetailPage(),
           ),
         ],
       ),
